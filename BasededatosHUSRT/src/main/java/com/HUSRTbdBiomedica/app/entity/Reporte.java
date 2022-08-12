@@ -92,6 +92,9 @@ public class Reporte implements Serializable{
     @Column(name = "rutapdf")
     private String Rutapdf;
     
+    @Column(name = "motivo")
+    private String Motivo;
+    
     @JoinColumn(name ="id_equipo_fk",referencedColumnName ="id_Equipo")
 	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private Equipo equipo;
@@ -323,6 +326,12 @@ public class Reporte implements Serializable{
 	}
 	public void setRutapdf(String rutapdf) {
 		Rutapdf = rutapdf;
+	}
+	public String getMotivo() {
+		return Motivo;
+	}
+	public void setMotivo(String motivo) {
+		Motivo = motivo;
 	}
 	
 

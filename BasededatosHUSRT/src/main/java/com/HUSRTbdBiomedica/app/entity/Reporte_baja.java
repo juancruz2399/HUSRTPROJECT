@@ -88,6 +88,12 @@ public class Reporte_baja implements Serializable{
     @Column(name = "tiempo_fuera_servicio_baja")
     private int Tiempo_fuera_servicio_baja;
     
+    @Column(name = "rutapdf_baja")
+    private String Rutapdf_baja;
+    
+    @Column(name = "motivo_baja")
+    private String Motivo_baja;
+    
     @JoinColumn(name ="id_baja_fk",referencedColumnName ="id_Baja")
 	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private Baja baja;
@@ -315,6 +321,22 @@ public class Reporte_baja implements Serializable{
 
 	public void setTiempo_fuera_servicio_baja(int tiempo_fuera_servicio_baja) {
 		Tiempo_fuera_servicio_baja = tiempo_fuera_servicio_baja;
+	}
+
+	public String getRutapdf_baja() {
+		return Rutapdf_baja;
+	}
+
+	public void setRutapdf_baja(String rutapdf_baja) {
+		Rutapdf_baja = rutapdf_baja;
+	}
+
+	public String getMotivo_baja() {
+		return Motivo_baja;
+	}
+
+	public void setMotivo_baja(String motivo_baja) {
+		Motivo_baja = motivo_baja;
 	}
     
     

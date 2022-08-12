@@ -193,6 +193,7 @@ public class ReporteController {
     	model.addAttribute("repuesto",reporte.getRepuesto_cambiado());
     	model.addAttribute("cegreso",reporte.getComprobante_ingreso());
     	
+    	model.addAttribute("motivo",reporte.getMotivo());
     	model.addAttribute("observaciones",reporte.getObservaciones());
     	model.addAttribute("nombrerealizado",reporte.getAutor_realizado());
     	model.addAttribute("nombrerecibido",reporte.getAutor_recibido());
@@ -289,11 +290,23 @@ public class ReporteController {
     @GetMapping("/download/{id}")
     public void downloadFile(HttpServletResponse response,@PathVariable Long id) throws IOException, DocumentException {
         PdfGenarator generator = new PdfGenarator();
-        byte[] pdfReport = generator.getPDF(ReporteService.findOne(id)).toByteArray();
+        Reporte reporte = ReporteService.findOne(id);
+        Mantenimiento_preventivo mtto = Mantenimiento_preventivoService.findbyreport(reporte.getId_Reporte());
+        List<Protocolo_preventivo> protocols = new ArrayList<Protocolo_preventivo>();
+        if(mtto!=null) {
+        	protocols = Protocolo_preventivoService.protocolobymtto(mtto.getId_Mantenimiento_preventivo());
+        	
+        }
+        else {
+        	protocols = null;
+        }
+    	
+        byte[] pdfReport = generator.getPDF(ReporteService.findOne(id),mtto,protocols).toByteArray();
 
         String mimeType =  "application/pdf";
+        String namefile = reporte.getNumero_reporte();
         response.setContentType(mimeType);
-        response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", "reporte.pdf"));
+        response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"",namefile+".pdf"));
 
         response.setContentLength(pdfReport.length);
 

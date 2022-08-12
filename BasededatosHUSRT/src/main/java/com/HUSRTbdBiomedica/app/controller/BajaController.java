@@ -283,7 +283,7 @@ public class BajaController {
 			}
 			
 		}
-		System.out.println(malestado);
+
 		model.addAttribute("malos",malestado);
 		model.addAttribute("regular",regular);
 		model.addAttribute("otros",buenosonoev);
@@ -377,7 +377,10 @@ public class BajaController {
 					reporte_baja.setTrabajo_realizado_baja(reportes.get(bajan).getTrabajo_realizado());
 					reporte_baja.setUbicacion_baja(reportes.get(bajan).getUbicacion());
 					reporte_baja.setMantenimiento_preventivo(Mantenimiento_preventivoService.findbyreport(reportes.get(bajan).getId_Reporte()));
-
+					//12 august 2022
+					reporte_baja.setRutapdf_baja(reportes.get(bajan).getRutapdf());
+					reporte_baja.setMotivo_baja(reportes.get(bajan).getMotivo());
+					
 					Reporte_bajaService.save(reporte_baja);
 					reportes.get(bajan).setEquipo(null);
 					ReporteService.delete(reportes.get(bajan).getId_Reporte());
