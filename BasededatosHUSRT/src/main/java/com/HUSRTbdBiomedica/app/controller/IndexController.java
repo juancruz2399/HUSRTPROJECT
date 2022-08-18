@@ -16,5 +16,10 @@ public class IndexController {
 		model.addAttribute("bienvenido","hola");
 		return "signinHUSRT";
 	}
+	
+	@GetMapping("/forbidden")
+	public String error403(Model model) {
+		return "forbidden";
+	}
 
 }

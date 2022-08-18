@@ -158,7 +158,7 @@
             </div>
             <div class = "col-7">
             	<label for = "fechareport">Fecha</label>
-            	<input th:name="fecha" type = "date"id="fechareport" class = "form-control" required>
+            	<input th:name="fecha" id = "date" type = "date" class = "form-control" required>
             </div>
             
             
@@ -337,8 +337,24 @@
     
   </footer>
 </div>
-<script>
+<script th:inline = "javascript">
+/*<![CDATA[*/
 
+var fecha = /*[[${fecha}]]*/ 'default';
+var hll = /*[[${horallamado}]]*/ 'default';
+var hi = /*[[${horainicio}]]*/ 'default';
+var ht = /*[[${horaterminacion}]]*/ 'default';
+
+var dateinput = document.getElementById("date");
+
+var hllinput = document.getElementById("llamadotime");
+var hiinput = document.getElementById("input_starttime");
+var htinput = document.getElementById("input_finaltime");
+
+dateinput.value = fecha;
+hllinput.value = hll;
+hiinput.value = hi;
+htinput.value = ht;
 
 $("#tfs").hide();
 $("#tfslabel").hide();
@@ -392,6 +408,7 @@ $(document).ready(function(){
 function mayus(e){
 	e.value = e.value.toUpperCase();
 }
+/*]]>*/
 </script>
 	
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>

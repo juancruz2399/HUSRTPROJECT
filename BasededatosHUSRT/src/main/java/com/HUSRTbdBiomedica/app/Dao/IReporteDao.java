@@ -23,7 +23,7 @@ public interface IReporteDao extends CrudRepository<Reporte, Long> {
     
     @Query("SELECT r FROM Reporte r " + 
     		"INNER JOIN Equipo e ON r.equipo.id_Equipo=e.id_Equipo " + 
-    		"WHERE e.id_Equipo=?1")    
+    		"WHERE e.id_Equipo=?1 ORDER BY r.Fecha DESC")    
     public List<Reporte> findReportesbyEquipo(Long id);
     
     @Query("SELECT MAX(r.id_Reporte) FROM Reporte r")

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en"xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -506,7 +506,6 @@ var dictservice = /*[[${servicios}]]*/ 'default';
 var listnameservice =dictservice;
 var botonopr = 0;
 
-
 $("#dic12").hide();
 $("#nov11").hide();
 $("#oct10").hide();
@@ -519,6 +518,332 @@ $("#abr4").hide();
 $("#mar3").hide();
 $("#feb2").hide();
 $("#ene1").hide();
+var mesesstr = /*[[${meses}]]*/ 'default';
+var diasstr = /*[[${dias}]]*/ 'default';
+if(mesesstr!=null && diasstr!=null){
+	var mesesarray = mesesstr.split(',');
+
+	var diasarray = diasstr.split(',');
+	if(mesesarray.indexOf('ENERO')!=-1){
+	let posicion = mesesarray.indexOf('ENERO')
+	 
+	$("#menero").prop("checked",true);
+	$("#ene1").show();
+	var mttodias = diasarray[posicion].split('-');
+	if(mttodias.length>1){
+		if(parseInt(mttodias[0],10)<10){
+			mttodias[0] = '0'+mttodias[0];
+		}
+		if(parseInt(mttodias[1],10)<10){
+			mttodias[1] = '0'+mttodias[1];
+		}
+		
+		
+	}
+	else{
+		if(parseInt(mttodias[0],10)<10){
+			mttodias[0] = '0'+mttodias[0];
+		}
+		
+	}
+	var rangedates = "1/"+mttodias[0]+" - "+"1/"+mttodias[1];
+	var inputenero = document.getElementById("ene1");
+	inputenero.value = rangedates;
+	}
+	if(mesesarray.indexOf('FEBRERO')!=-1){
+		let posicion = mesesarray.indexOf('FEBRERO')
+		 
+		$("#mfebrero").prop("checked",true);
+		$("#feb2").show();
+		var mttodias = diasarray[posicion].split('-');
+	
+		if(mttodias.length>1){
+			if(parseInt(mttodias[0],10)<10){
+				mttodias[0] = '0'+mttodias[0];
+			}
+			if(parseInt(mttodias[1],10)<10){
+				mttodias[1] = '0'+mttodias[1];
+			}
+			
+			
+		}
+		else{
+			if(parseInt(mttodias[0],10)<10){
+				mttodias[0] = '0'+mttodias[0];
+			}
+			
+		}
+		var rangedates = "2/"+mttodias[0]+" - "+"2/"+mttodias[1];
+		var inputmes = document.getElementById("feb2");
+		inputmes.value = rangedates;
+	}
+	if(mesesarray.indexOf('MARZO')!=-1){
+		let posicion = mesesarray.indexOf('MARZO')
+		 
+		$("#mmarzo").prop("checked",true);
+		$("#mar3").show();
+		var mttodias = diasarray[posicion].split('-');
+		if(mttodias.length>1){
+			if(parseInt(mttodias[0],10)<10){
+				mttodias[0] = '0'+mttodias[0];
+			}
+			if(parseInt(mttodias[1],10)<10){
+				mttodias[1] = '0'+mttodias[1];
+			}
+			
+			
+		}
+		else{
+			if(parseInt(mttodias[0],10)<10){
+				mttodias[0] = '0'+mttodias[0];
+			}
+			
+		}
+		var rangedates = "3/"+mttodias[0]+" - "+"3/"+mttodias[1];
+		var inputmes = document.getElementById("mar3");
+		inputmes.value = rangedates;
+	}
+	if(mesesarray.indexOf('ABRIL')!=-1){
+		let posicion = mesesarray.indexOf('ABRIL')
+		 
+		$("#mabril").prop("checked",true);
+		$("#abr4").show();
+		var mttodias = diasarray[posicion].split('-');
+		if(mttodias.length>1){
+			if(parseInt(mttodias[0],10)<10){
+				mttodias[0] = '0'+mttodias[0];
+			}
+			if(parseInt(mttodias[1],10)<10){
+				mttodias[1] = '0'+mttodias[1];
+			}
+			
+			
+		}
+		else{
+			if(parseInt(mttodias[0],10)<10){
+				mttodias[0] = '0'+mttodias[0];
+			}
+			
+		}
+		var rangedates = "4/"+mttodias[0]+" - "+"4/"+mttodias[1];
+		var inputmes = document.getElementById("abr3");
+		inputmes.value = rangedates;
+	}
+	if(mesesarray.indexOf('MAYO')!=-1){
+		let posicion = mesesarray.indexOf('MAYO')
+		 
+		$("#mmayo").prop("checked",true);
+		$("#may5").show();
+		var mttodias = diasarray[posicion].split('-');
+		if(mttodias.length>1){
+			if(parseInt(mttodias[0],10)<10){
+				mttodias[0] = '0'+mttodias[0];
+			}
+			if(parseInt(mttodias[1],10)<10){
+				mttodias[1] = '0'+mttodias[1];
+			}
+			
+			
+		}
+		else{
+			if(parseInt(mttodias[0],10)<10){
+				mttodias[0] = '0'+mttodias[0];
+			}
+			
+		}
+		var rangedates = "5/"+mttodias[0]+" - "+"5/"+mttodias[1];
+		var inputmes = document.getElementById("may5");
+		inputmes.value = rangedates;
+	}
+	if(mesesarray.indexOf('JUNIO')!=-1){
+		let posicion = mesesarray.indexOf('JUNIO')
+		 
+		$("#mjunio").prop("checked",true);
+		$("#jun6").show();
+		var mttodias = diasarray[posicion].split('-');
+		if(mttodias.length>1){
+			if(parseInt(mttodias[0],10)<10){
+				mttodias[0] = '0'+mttodias[0];
+			}
+			if(parseInt(mttodias[1],10)<10){
+				mttodias[1] = '0'+mttodias[1];
+			}
+			
+			
+		}
+		else{
+			if(parseInt(mttodias[0],10)<10){
+				mttodias[0] = '0'+mttodias[0];
+			}
+			
+		}
+		var rangedates = "6/"+mttodias[0]+" - "+"6/"+mttodias[1];
+		var inputmes = document.getElementById("jun6");
+		inputmes.value = rangedates;
+	}
+	if(mesesarray.indexOf('JULIO')!=-1){
+		let posicion = mesesarray.indexOf('JULIO')
+		 
+		$("#mjulio").prop("checked",true);
+		$("#jul7").show();
+		var mttodias = diasarray[posicion].split('-');
+		if(mttodias.length>1){
+			if(parseInt(mttodias[0],10)<10){
+				mttodias[0] = '0'+mttodias[0];
+			}
+			if(parseInt(mttodias[1],10)<10){
+				mttodias[1] = '0'+mttodias[1];
+			}
+			
+			
+		}
+		else{
+			if(parseInt(mttodias[0],10)<10){
+				mttodias[0] = '0'+mttodias[0];
+			}
+			
+		}
+		var rangedates = "7/"+mttodias[0]+" - "+"7/"+mttodias[1];
+		var inputmes = document.getElementById("jul7");
+		inputmes.value = rangedates;
+	}
+	if(mesesarray.indexOf('AGOSTO')!=-1){
+		let posicion = mesesarray.indexOf('AGOSTO')
+		 
+		$("#magosto").prop("checked",true);
+		$("#ago8").show();
+		var mttodias = diasarray[posicion].split('-');
+		if(mttodias.length>1){
+			if(parseInt(mttodias[0],10)<10){
+				mttodias[0] = '0'+mttodias[0];
+			}
+			if(parseInt(mttodias[1],10)<10){
+				mttodias[1] = '0'+mttodias[1];
+			}
+			
+			
+		}
+		else{
+			if(parseInt(mttodias[0],10)<10){
+				mttodias[0] = '0'+mttodias[0];
+			}
+			
+		}
+		var rangedates = "8/"+mttodias[0]+" - "+"8/"+mttodias[1];
+		var inputmes = document.getElementById("ago8");
+		inputmes.value = rangedates;
+	}
+	if(mesesarray.indexOf('SEPTIEMBRE')!=-1){
+		let posicion = mesesarray.indexOf('SEPTIEMBRE')
+		 
+		$("#mseptiembre").prop("checked",true);
+		$("#sep9").show();
+		var mttodias = diasarray[posicion].split('-');
+		if(mttodias.length>1){
+			if(parseInt(mttodias[0],10)<10){
+				mttodias[0] = '0'+mttodias[0];
+			}
+			if(parseInt(mttodias[1],10)<10){
+				mttodias[1] = '0'+mttodias[1];
+			}
+			
+			
+		}
+		else{
+			if(parseInt(mttodias[0],10)<10){
+				mttodias[0] = '0'+mttodias[0];
+			}
+			
+		}
+		var rangedates = "9/"+mttodias[0]+" - "+"9/"+mttodias[1];
+		var inputmes = document.getElementById("sep9");
+		inputmes.value = rangedates;
+	}
+	if(mesesarray.indexOf('OCTUBRE')!=-1){
+		let posicion = mesesarray.indexOf('OCTUBRE')
+		 
+		$("#moctubre").prop("checked",true);
+		$("#oct10").show();
+		var mttodias = diasarray[posicion].split('-');
+		if(mttodias.length>1){
+			if(parseInt(mttodias[0],10)<10){
+				mttodias[0] = '0'+mttodias[0];
+			}
+			if(parseInt(mttodias[1],10)<10){
+				mttodias[1] = '0'+mttodias[1];
+			}
+			
+			
+		}
+		else{
+			if(parseInt(mttodias[0],10)<10){
+				mttodias[0] = '0'+mttodias[0];
+			}
+			
+		}
+		var rangedates = "10/"+mttodias[0]+" - "+"10/"+mttodias[1];
+		var inputmes = document.getElementById("oct10");
+		inputmes.value = rangedates;
+	}
+	if(mesesarray.indexOf('NOVIEMBRE')!=-1){
+		let posicion = mesesarray.indexOf('NOVIEMBRE')
+		 
+		$("#mnoviembre").prop("checked",true);
+		$("#nov11").show();
+		var mttodias = diasarray[posicion].split('-');
+		if(mttodias.length>1){
+			if(parseInt(mttodias[0],10)<10){
+				mttodias[0] = '0'+mttodias[0];
+			}
+			if(parseInt(mttodias[1],10)<10){
+				mttodias[1] = '0'+mttodias[1];
+			}
+			
+			
+		}
+		else{
+			if(parseInt(mttodias[0],10)<10){
+				mttodias[0] = '0'+mttodias[0];
+			}
+			
+		}
+		var rangedates = "11/"+mttodias[0]+" - "+"11/"+mttodias[1];
+		var inputmes = document.getElementById("nov11");
+		inputmes.value = rangedates;
+	}
+	if(mesesarray.indexOf('DICIEMBRE')!=-1){
+		let posicion = mesesarray.indexOf('DICIEMBRE')
+		 
+		$("#mdiciembre").prop("checked",true);
+		$("#dic12").show();
+		var mttodias = diasarray[posicion].split('-');
+		if(mttodias.length>1){
+			if(parseInt(mttodias[0],10)<10){
+				mttodias[0] = '0'+mttodias[0];
+			}
+			if(parseInt(mttodias[1],10)<10){
+				mttodias[1] = '0'+mttodias[1];
+			}
+			
+			
+		}
+		else{
+			if(parseInt(mttodias[0],10)<10){
+				mttodias[0] = '0'+mttodias[0];
+			}
+			
+		}
+		var rangedates = "12/"+mttodias[0]+" - "+"12/"+mttodias[1];
+		var inputmes = document.getElementById("dic12");
+		inputmes.value = rangedates;
+	}
+	
+	
+}
+
+
+
+
 
 
 $(document).ready(function(){

@@ -138,7 +138,7 @@
             <td><a class="btn btn btn-primary" th:href="@{/reportesbaja/} + ${baja.id_Baja}" th:text="${baja.id_Baja}+' Reportes'"></a>
             	</td>
             <td>
-            	<a class="btn btn btn-danger" th:href="@{/eliminarbaja/} + ${baja.id_Baja}" th:text="${baja.id_Baja}+' Eliminar'" onclick="return confirm('¿Estás seguro que quieres eliminar?');"></a>
+            	<a class="btn btn btn-danger" th:href="@{/eliminarbaja/} + ${baja.id_Baja}" th:text="${baja.id_Baja}+' Eliminar'" onclick="confirm('¿Estás seguro que quieres eliminar?')"></a>
             	
             </td>
           </tr>

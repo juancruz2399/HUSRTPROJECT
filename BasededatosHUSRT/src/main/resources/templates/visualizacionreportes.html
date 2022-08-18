@@ -167,14 +167,15 @@
             <td th:text="${reporte.Autor_recibido}"></td>
           
             <td th:text="${reporte.Observaciones}"></td>
-            
+           
             <td>
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" th:attr="data-bs-target='#staticBackdrop'+${reporte.id_Reporte}">
                 Más
               </button>
+              <button sec:authorize= "hasAnyAuthority('ADMIN','EDITOR')" th:onclick= "'window.location.href = \''+@{/editreporte/}+${reporte.id_Reporte}+'\''" type = "button"class = "btn btn-success">Editar</button>
 
               <!-- Modal -->
-              <div class="modal fade" th:id="'staticBackdrop'+${reporte.id_Reporte}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal" th:id="'staticBackdrop'+${reporte.id_Reporte}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -343,10 +344,10 @@
                                   
                                   </div> 
                                 </fieldset>  
-                                <form method = "post" th:action = "@{/uploadreport/}+${reporte.id_Reporte}" enctype = "multipart/form-data" th:id = "'fileUploadForm'+${reporte.id_Reporte}" class = "container">
+                                <form class="needs-validation" validate method = "post" th:action = "@{/uploadreport/}+${reporte.id_Reporte}" enctype = "multipart/form-data" th:id = "'fileUploadForm'+${reporte.id_Reporte}" >
                                 	<div class = "form-group">
                                 		<label class = "custom-file" th:id = "'custom-file'+${reporte.id_Reporte}">
-                                			<input type = "file" class = "form-control" name = "file" accept = "application/pdf">
+                                			<input type = "file" class = "form-control" name = "file" accept = "application/pdf" required>
                                 			<span class = "form-control"></span>
                                 		</label>
                                 		<div class = "form-group">
@@ -355,7 +356,7 @@
                                 		</div>
                                 	</div>
                                 </form> 
-                                <div  th:if="${reporte.Rutapdf!=''}">
+                                <div  th:if="${reporte.Rutapdf}">
                                 	<form method = "get" th:action = "@{/visualpdfreport/}+${reporte.id_Reporte}" enctype = "multipart/form-data" th:id = "'fileUploadForm'+${reporte.id_Reporte}" class = "container">
                                 
 	                                	<button type = "submit" id = "previewBtn" class = "btn btn-primary">Visualizar</button>

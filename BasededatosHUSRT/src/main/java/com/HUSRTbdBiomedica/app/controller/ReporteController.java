@@ -40,6 +40,7 @@ import com.HUSRTbdBiomedica.app.entity.Equipo;
 import com.HUSRTbdBiomedica.app.entity.Mantenimiento_preventivo;
 import com.HUSRTbdBiomedica.app.entity.Protocolo_preventivo;
 import com.HUSRTbdBiomedica.app.entity.Reporte;
+import com.HUSRTbdBiomedica.app.entity.Servicio;
 import com.HUSRTbdBiomedica.app.entity.Tipo_equipo;
 import com.HUSRTbdBiomedica.service.IEquipoService;
 import com.HUSRTbdBiomedica.service.IMantenimiento_preventivoService;
@@ -285,6 +286,16 @@ public class ReporteController {
     	modaladd.addAttribute("reporte",reporte);
     	
     	modaladd.addAttribute("numeroreporte",ReporteService.LastIdReporte()+20001);
+    	
+    	Date defaultdate = Date.valueOf(LocalDate.now());
+    	Time defaulthour = Time.valueOf(LocalTime.now());
+    	Time defaultcall = Time.valueOf(LocalTime.parse("00:00:00"));
+    	modaladd.addAttribute("fecha",defaultdate);
+    	modaladd.addAttribute("horallamado",defaultcall);
+    	modaladd.addAttribute("horainicio",defaulthour);
+    	modaladd.addAttribute("horaterminacion",defaulthour);
+	
+    	
     	return "nuevoreporte";
     }
     @GetMapping("/download/{id}")
@@ -314,6 +325,55 @@ public class ReporteController {
 
         FileCopyUtils.copy(inStream, response.getOutputStream());
     }
+    
+    @GetMapping("/formatoreportepdf")
+    public void downloadReportFormat(HttpServletResponse response) throws IOException, DocumentException {
+        PdfGenarator generator = new PdfGenarator();
+
+       
+    	
+        byte[] pdfReport = generator.getoriginalPDF().toByteArray();
+
+        String mimeType =  "application/pdf";
+        String namefile = "formatoReportes2022";
+        response.setContentType(mimeType);
+        response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"",namefile+".pdf"));
+
+        response.setContentLength(pdfReport.length);
+
+        ByteArrayInputStream inStream = new ByteArrayInputStream( pdfReport);
+
+        FileCopyUtils.copy(inStream, response.getOutputStream());
+    }
+    
+    @GetMapping("/editreporte/{id}")
+	public String editarreporte(@PathVariable(value="id") Long id,
+			Model model,Map<String, Object> map,
+            RedirectAttributes flash) {
+		Reporte reporte  = ReporteService.findOne(id);
+		Equipo equipo= reporte.getEquipo();
+    	
+    	model.addAttribute("serieequipo",equipo.getSerie());
+    	model.addAttribute("placa",equipo.getPlaca_inventario());
+    	model.addAttribute("servicioequipo",equipo.getServicios());
+    	model.addAttribute("idequipo",equipo.getId_Equipo());
+    	model.addAttribute("ubicacionequipo",equipo.getUbicacion());
+    	model.addAttribute("tipoequipo",equipo.getTipo_equipo());
+    	model.addAttribute("nombreequipo",equipo.getNombre_Equipo());
+    	model.addAttribute("periodicidad",equipo.getPeriodicidad());
+    	map.put("reporte", reporte);
+    
+    	model.addAttribute("equipo", equipo);
+    	
+    	model.addAttribute("numeroreporte",reporte.getNumero_reporte());		
+		
+		model.addAttribute("fecha",reporte.getFecha());
+		model.addAttribute("horallamado",reporte.getHora_llamado());
+		model.addAttribute("horainicio",reporte.getHora_inicio());
+		model.addAttribute("horaterminacion",reporte.getHora_terminacion());
+		return "nuevoreporte";
+	}
+    
     @PostMapping(value="/nuevoreporte/{id}")
     public String guardarnuevoreporte(@PathVariable Long id,@RequestParam(value="fecha")String fecha,
     		@RequestParam(value="hora_llamado",defaultValue = "00:00")String hora_llamado,

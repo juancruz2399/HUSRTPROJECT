@@ -1,31 +1,59 @@
 package com.HUSRTbdBiomedica.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.persistence.GenerationType;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.HUSRTbdBiomedica.app.entity.Authority;
 import com.HUSRTbdBiomedica.app.entity.Usuario;
 
 public class CustomUserDetails implements UserDetails {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	
 	private Usuario usuario;
 	
+	
+	
+	
 	public CustomUserDetails(Usuario usuario) {
-		super();
+
 		this.usuario = usuario;
+		
 	}
+	/*public static CustomUserDetails build(Usuario usuario) {
+		List<GrantedAuthority> authorities = 
+				usuario.getAuthority().stream().map(authority -> new SimpleGrantedAuthority(authority.getAuthority())).collect(Collectors.toList());
+		System.out.println(authorities);
+		return new CustomUserDetails(usuario,authorities);
+	}*/
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return Collections.singleton(new SimpleGrantedAuthority(usuario.getTipo_cargo_usuario()));
+		
+		Set<Authority> roles = usuario.getAuthority();
+		List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
+		for(Authority role:roles) {
+			authorities.add(new SimpleGrantedAuthority(role.getAuthority()));
+		}
+        
+		return authorities;
 	}
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
 		return usuario.getPassword();
 	}
 
@@ -62,5 +90,6 @@ public class CustomUserDetails implements UserDetails {
 	public String getFullName() {
 		return usuario.getNombre() + " " + usuario.getApellido();
 	}
+	
 
 }

@@ -129,7 +129,7 @@
             <td th:text="${hoja_vida.Representante}"></td>
             <td th:text="${hoja_vida.Registro_invima}"></td>
             <td>
-            	<a class="btn btn btn-danger" th:href="@{/eliminarHV/} + ${hoja_vida.id_Hoja_vida}" th:text="${hoja_vida.id_Hoja_vida}+' Eliminar'" onclick="return confirm('¿Estás seguro que quieres eliminar?');"></a>
+            	<a class="btn btn btn-danger" th:href="@{/eliminarHV/} + ${hoja_vida.id_Hoja_vida}" th:text="${hoja_vida.id_Hoja_vida}+' Eliminar'" onclick="confirm('¿Estás seguro que quieres eliminar?');"></a>
             	
             </td>
           </tr>

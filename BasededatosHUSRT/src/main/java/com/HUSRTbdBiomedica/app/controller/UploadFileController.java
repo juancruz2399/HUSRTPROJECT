@@ -36,7 +36,7 @@ public class UploadFileController {
 		
 		uploadFileService.saveFile(file,id);
 		ReporteService.save(reporte);
-		return "producto";
+		return "redirect: /visualizacionreportes/"+reporte.getEquipo().getId_Equipo();
 		
 	}
 	
